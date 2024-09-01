@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid2, Box, Container, Chip } from '@mui/material';
 import { posts } from '../data/posts';
-import { Header } from './Header';
 
 export const Toppage = () => {
   const formatDate = (dateString) => {
@@ -14,7 +13,6 @@ export const Toppage = () => {
 
   return (
     <>
-      <Header />
       <Container maxWidth="md" sx={{ pb: 5 }}>
         <Grid2 container direction="column" spacing={5}>
             {posts.map((post) => (
