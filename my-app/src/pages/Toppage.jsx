@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid2, Box, Container, Chip } from '@mui/material';
+import { Card, CardContent, Typography, Grid2, Box, Container, Chip, CardActionArea } from '@mui/material';
 import { posts } from '../data/posts';
+import { Link } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 export const Toppage = () => {
   const formatDate = (dateString) => {
@@ -12,62 +14,62 @@ export const Toppage = () => {
   };
 
   return (
-    <>
-      <Container maxWidth="md" sx={{ pb: 5 }}>
-        <Grid2 container direction="column" spacing={5}>
-            {posts.map((post) => (
-              <Grid2 key={post.id}>
-                <Card
-                sx={{
-                  boxShadow: 'none',
-                  border: '1px solid #e0e0e0',
-                  pr: 10
-                  }}
+  <Container maxWidth="md" sx={{ pb: 5 }}>
+    <Grid2 container direction="column" spacing={5}>
+      {posts.map((post) => (
+        <Grid2 key={post.id}>
+          <CardActionArea component={Link} to={`/posts/${post.id}`}>
+            <Card
+              sx={{
+                boxShadow: 'none',
+                border: '1px solid #e0e0e0',
+                pr: 10
+              }}
+            >
+              <CardContent>
+                <Box display="flex" justifyContent="space-between">
+                  <Typography
+                    sx={{
+                      fontSize: '13px',
+                      color: '#888888'
+                    }}
                   >
-                  <CardContent>
-                    <Box display='flex' justifyContent='space-between'>
-                      <Typography
-                      sx={{
-                        fontSize: '13px',
-                        color: '#888888'
-                        }}
-                        >
-                          {formatDate(post.createdAt)}
-                      </Typography>
-                      <Box>
-                        {post.categories.map((category, index) => (
-                          <Box sx={{ mr: 1, display: 'inline-block' }}>
-                            <Chip
-                            label={category}
-                            key={index}
-                            color="primary"
-                            variant="outlined"
-                            sx={{ borderRadius: 1 }}
-                            />
-                          </Box>
-                        ))}
+                    {formatDate(post.createdAt)}
+                  </Typography>
+                  <Box>
+                    {post.categories.map((category, index) => (
+                      <Box key={index} sx={{ mr: 1, display: 'inline-block' }}>
+                        <Chip
+                          label={category}
+                          key={index}
+                          color="primary"
+                          variant="outlined"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </Box>
-                    </Box>
-                    <Typography sx={{ fontSize: '24px' }}>{post.title}</Typography>
-                    <Typography
-                      sx={{
-                        pt: 2,
-                        display: '-webkit-box',
-                        overflow: 'hidden',
-                        WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: 2,
-                      }}
-                    >
-                      {post.content}
-                      </Typography>
-                  </CardContent>
-                </Card>
-              </Grid2>
-            ))}
+                    ))}
+                  </Box>
+                </Box>
+                <Typography sx={{ fontSize: '24px' }}>{post.title}</Typography>
+                <Typography
+                  sx={{
+                    pt: 2,
+                    display: '-webkit-box',
+                    overflow: 'hidden',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 2,
+                  }}
+                >
+                  {parse(post.content)}
+                </Typography>
+              </CardContent>
+            </Card>
+          </CardActionArea>
         </Grid2>
-      </Container>
-      </>
-  );
+      ))}
+    </Grid2>
+  </Container>
+);
 };
 
 export default Toppage;
