@@ -18,6 +18,10 @@ export const Detail = () => {
     return `${year}/${month}/${day}`;
   };
 
+  if (!post) {
+    return <div>記事が見つかりません</div>
+  }
+
   return (
     <Container maxWidth="md" sx={{ pb: 5 }}>
       <Card>
