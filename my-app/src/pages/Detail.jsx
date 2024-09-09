@@ -8,6 +8,13 @@ export const Detail = () => {
   const { id } = useParams();
   const [ post, setPosts ] = useState(null);
   const [ loading, setLoading ] = useState(false);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}/${month}/${day}`;
+  };
 
   // APIでpostsを取得する処理をuseEffectで実行する
   useEffect(() => {
@@ -28,14 +35,6 @@ export const Detail = () => {
   if (!loading && !post) {
     return <div>記事が見つかりません</div>
   }
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
-  };
 
   return (
     <Container maxWidth="md" sx={{ pb: 5 }}>

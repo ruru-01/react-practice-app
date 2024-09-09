@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../constants";
 
 export const Toppage = () => {
   const [ posts, setPosts ] = useState([]);
+  const [ loading, setLoading ] = useState([]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -20,9 +21,18 @@ export const Toppage = () => {
       const res = await fetch(`${API_BASE_URL}/posts`)
       const { posts } = await res.json()
       setPosts(posts)
+      setLoading(false)
     }
     fetcher()
   }, []);
+
+  if (loading) {
+    return <div>読み込み中</div>
+  }
+
+  if (!loading && !posts) {
+    return <div>記事が見つかりません</div>
+  }
 
   return (
   <Container maxWidth="md" sx={{ pb: 5 }}>
