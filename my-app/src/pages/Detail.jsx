@@ -1,15 +1,13 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Card, Typography, Box, Container, Chip, CardMedia } from '@mui/material';
-import { posts } from '../data/posts';
 import { useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
+import { API_BASE_URL } from "../constants";
 
 export const Detail = () => {
   const { id } = useParams();
-
-  // idに対応する投稿を検索
-  const post = posts.find((post) => post.id === Number(id));
-
+  const [ post, setPosts ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -18,7 +16,23 @@ export const Detail = () => {
     return `${year}/${month}/${day}`;
   };
 
-  if (!post) {
+  // APIでpostsを取得する処理をuseEffectで実行する
+  useEffect(() => {
+    const fetcher = async () => {
+      setLoading(true)
+      const res = await fetch(`${API_BASE_URL}/posts/${id}`)
+      const { post } = await res.json()
+      setPosts(post)
+      setLoading(false)
+    }
+    fetcher()
+  }, [id]);
+
+  if (loading) {
+    return <div>読み込み中</div>
+  }
+
+  if (!loading && !post) {
     return <div>記事が見つかりません</div>
   }
 
