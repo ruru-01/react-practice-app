@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Card, CardContent, Typography, Grid2, Box, Container, Chip, CardActionArea } from '@mui/material';
-import { posts } from '../data/posts';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
+import { API_BASE_URL } from "../constants";
 
 export const Toppage = () => {
+  const [ posts, setPosts ] = useState([]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -12,6 +13,16 @@ export const Toppage = () => {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}/${month}/${day}`;
   };
+
+  // APIでpostsを取得する処理をuseEffectで実行する
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`${API_BASE_URL}/posts`)
+      const { posts } = await res.json()
+      setPosts(posts)
+    }
+    fetcher()
+  }, []);
 
   return (
   <Container maxWidth="md" sx={{ pb: 5 }}>

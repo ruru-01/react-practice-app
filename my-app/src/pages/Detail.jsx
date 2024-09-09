@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import { Card, Typography, Box, Container, Chip, CardMedia } from '@mui/material';
-// import { posts } from '../data/posts';
 import { useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
 import { API_BASE_URL } from "../constants";
