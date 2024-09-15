@@ -31,7 +31,7 @@ export const Header = () => {
         </Link>
         <Box>
           <Link
-            href="/"
+            href="/contact"
             sx={{
               color: '#fff',
               textDecoration: 'none',

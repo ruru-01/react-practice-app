@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Toppage from './pages/Toppage'
 import { Header } from './pages/Header';
 import { Detail } from './pages/Detail';
+import { Contact } from './pages/Contact';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
       <Route path='/' element={<Toppage />} />
       <Route path='/posts/:id' element={<Detail />} />
+      <Route path='/contact' element={<Contact />} />
       </Routes>
     </div>
   )

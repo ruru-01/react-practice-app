@@ -29,7 +29,7 @@ export const Detail = () => {
   }, [id]);
 
   if (loading) {
-    return <div>読み込み中</div>
+    return <div>読み込み中...</div>
   }
 
   if (!loading && !post) {
