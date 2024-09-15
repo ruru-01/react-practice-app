@@ -12,36 +12,28 @@ export const Contact = () => {
 
   // バリデーション
   const valid = () => {
-    let isValid = true
     let errorMessage = {};
 
     if (!name) {
       errorMessage.name = "お名前は必須です。";
-      isValid = false
     } else if (name.length > 30) {
       errorMessage.name = "お名前は30文字以内で入力してください。";
-      isValid = false
     }
 
     if (!email) {
       errorMessage.email = "メールアドレスは必須です。";
-      isValid = false
     } else if (!email.match(/.+@.+\..+/)) {
       errorMessage.email = "有効なメールアドレスを入力してください。";
-      isValid = false
     }
 
     if (!message) {
       errorMessage.message = "本文は必須です。"
-      isValid = false
     } else if (message.length > 500) {
       errorMessage.message = "本文は500文字以内で入力してください。";
-      isValid = false
     }
 
     setErrors(errorMessage);
-    return isValid
-
+    return Object.keys(errorMessage).length === 0;
   }
 
   // フォームの送信
@@ -114,7 +106,6 @@ export const Contact = () => {
                 }}
             />
           </Grid2>
-
           <Grid2
               sx={{
                 display: 'flex',
