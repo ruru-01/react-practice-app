@@ -27,7 +27,7 @@ export const Toppage = () => {
   }, []);
 
   if (loading) {
-    return <div>読み込み中</div>
+    return <div>読み込み中...</div>
   }
 
   if (!loading && !posts.length) {
